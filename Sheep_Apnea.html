@@ -30,42 +30,66 @@
 window.addEventListener("load",eventWindowLoaded, false);
 //window.addEventListener("resize", resizeCanvas, false);
 
+// Declare main game objects
+var player;
+
+var bgMain;
+var mainContext;
+
 var Debugger = function () { };
-Debugger.log = function(message) {
-	try {
+Debugger.log = function(message) 
+{
+	try 
+	{
 		console.log(message);
-	} catch (exception) {
+	} catch (exception) 
+	{
 		return;	
 	}
 }
 
-function eventWindowLoaded() {
+function eventWindowLoaded() 
+{
 	canvasApp();
+	render();
 }
 
-function canvasSupport() {
+function canvasSupport() 
+{
 	return Modernizr.canvas;
 }
 
-function canvasApp() {
-	
-	if(!canvasSupport) {
+function canvasApp() 
+{
+	if(!canvasSupport) 
+	{
 		return;	
-	} else {
-		var theCanvas = document.getElementById("main_layer");
-		var context = theCanvas.getContext("2d");
-		drawScreen();
-	}
-	
-	function drawScreen() {
-		//MAKE CHANGES HERE
-		context.fillStyle = '#aaaaaa';
-		context.fillRect(0, 0, 480, 320);
-		context.fillStyle = '#000000';
-		context.font = "50px _sans";
-		context.fillText("Herp Derp", 100, 80);
+	} 
+	else 
+	{
+		bgMain = document.getElementById("main_layer");
+		mainContext = bgMain.getContext("2d");
+		
+		player
 	}
 }
+
+function render() 
+{
+	requestAnimFrame(drawScreen);
+}
+
+window.requestAnimFrame = (function()
+{
+	return window.requestAnimationFrame    ||
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame    ||
+		window.oRequestAnimationFrame      ||
+		window.msRequestAnimationFrame     ||
+		function(/*function*/ callback, /*DOMElement*/ element){
+			window.setTimeout(callback, 1000/60);
+		};
+})();
 </script>
 </head>
 

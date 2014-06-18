@@ -20,5 +20,9 @@ sag.Player = sag.Drawable.extend
 		
 		this.context.clearRect(this.xPos, this.yPos, this.iWidth, this.iHeight);
 		
+		if(KEY_STATUS.space)
+		{
+			testSheepPool.getMember("sheep");	
+		}
 	},
 });
