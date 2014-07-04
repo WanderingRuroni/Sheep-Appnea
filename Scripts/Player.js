@@ -7,11 +7,12 @@ sag.Player = sag.Drawable.extend
 	yVel: 0,
 	fireRate: 15,
 	counter: 0,
-	testSheepPool: sag.Pool.extend(),
+	testSheepPool: null,
 	
-	init: function()
+	init: function(pContext,testPool)
 	{
-		testSheepPool.init(10,"sheep");
+		context: pContext;
+		testSheepPool = testPool;
 	},
 	
 	update: function()
@@ -24,5 +25,5 @@ sag.Player = sag.Drawable.extend
 		{
 			testSheepPool.getMember("sheep");	
 		}
-	},
+	}
 });
