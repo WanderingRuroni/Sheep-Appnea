@@ -21,17 +21,24 @@
 <script src="Scripts/KeyboardInputs.js"></script>
 <script src="Scripts/Drawable.js"></script>
 <script src="Scripts/Sheep.js"></script>
-<script src="Scripts/Player.js"></script>
 <script src="Scripts/Pool.js"></script>
+<script src="Scripts/Player.js"></script>
 <script src="Scripts/Screen.js"></script>
 <script src="Scripts/ScreenManager.js"></script>
 <script type="text/javascript">
-
+if (typeof Object.create !== "function") {
+	Object.create = function (o) {
+		function F() {}
+		F.prototype = o;
+		return new F();
+	};
+}
 window.addEventListener("load",eventWindowLoaded, false);
 //window.addEventListener("resize", resizeCanvas, false);
 
 // Declare main game objects
 var player;
+var testPool;
 
 var bgMain;
 var mainContext;
@@ -70,13 +77,17 @@ function canvasApp()
 		bgMain = document.getElementById("main_layer");
 		mainContext = bgMain.getContext("2d");
 		
-		player
+		player = sag.Player.extend();
+		testPool = sag.Pool.extend();
+		player.init(mainContext,testPool);
 	}
 }
 
 function render() 
 {
-	requestAnimFrame(drawScreen);
+	requestAnimFrame(render);
+	player.update();
+	player.testSheepPool.animate();
 }
 
 window.requestAnimFrame = (function()

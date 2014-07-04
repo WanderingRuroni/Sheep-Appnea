@@ -17,7 +17,7 @@ sag.Pool =
 		return obj;
 	},
 	
-	init: function(maxSize,oType)
+	init: function(maxSize,oType,sContext)
 	{
 		size = maxSize;
 		
@@ -25,7 +25,9 @@ sag.Pool =
 		{
 			for(var i = 0; i < size; i++)
 			{
-				var sheep = sag.Sheep.extend();
+				var sheep = sag.Sheep.extend({
+					context: sContext
+				});
 				// initialization will be changed once I have sprites
 				sheep.init(0,0,15,15);
 				pool[i] = sheep;
