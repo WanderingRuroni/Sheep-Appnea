@@ -3,8 +3,8 @@ var sag = sag || {};
 
 sag.Pool = 
 {
-	size: 0,
 	pool: [],
+	size: 0,
 	
 	extend: function(props) {
 		var prop, obj;
@@ -30,7 +30,7 @@ sag.Pool =
 				});
 				// initialization will be changed once I have sprites
 				sheep.init(0,0,15,15);
-				pool[i] = sheep;
+				this.pool.push(sheep);
 			}
 		}
 	},
@@ -39,10 +39,10 @@ sag.Pool =
 	// the game world
 	getMember: function(type)
 	{
-		if(!pool[size - 1].alive)
+		if(!this.pool[size - 1].alive)
 		{
-			pool[size - 1].spawn(type);
-			pool.unshift(pool.pop());
+			this.pool[size - 1].spawn(type);
+			this.pool.unshift(this.pool.pop());
 		}
 	},
 	
@@ -50,17 +50,17 @@ sag.Pool =
 	{
 		for(var i = 0; i < size; i++)
 		{
-			if(pool[i].alive)
+			if(this.pool[i].alive)
 			{
-				pool[i].update();
+				this.pool[i].update();
 			}
 			else
 			{
-				pool[i].shear();
-				var tempItem = pool[0];
-				pool[0] = pool[i];
-				pool[i] = tempItem;
-				pool.push(pool.shift());
+				this.pool[i].shear();
+				var tempItem = this.pool[0];
+				this.pool[0] = this.pool[i];
+				this.pool[i] = tempItem;
+				this.pool.push(this.pool.shift());
 				/* Will come back to this if my solution causes problems
 				pool.push((pool.splice(i,1))[0]);
 				 */

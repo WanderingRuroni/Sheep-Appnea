@@ -77,9 +77,12 @@ function canvasApp()
 		bgMain = document.getElementById("main_layer");
 		mainContext = bgMain.getContext("2d");
 		
-		player = sag.Player.extend();
+		player = sag.Player.extend({
+			context: mainContext
+		});
 		testPool = sag.Pool.extend();
-		player.init(mainContext,testPool);
+		testPool.init(10, "sheep", mainContext);
+		player.init(testPool);
 	}
 }
 

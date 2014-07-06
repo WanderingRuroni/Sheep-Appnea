@@ -6,18 +6,17 @@ sag.Player = sag.Drawable.extend
 	xVel: 0,
 	yVel: 0,
 	fireRate: 15,
-	counter: 0,
+	//counter: 0,
 	testSheepPool: null,
 	
-	init: function(pContext,testPool)
+	init: function(testPool)
 	{
-		context: pContext;
-		testSheepPool = testPool;
+		testSheepPool: testPool;
 	},
 	
 	update: function()
 	{
-		counter++;
+		//counter++;
 		
 		this.context.clearRect(this.xPos, this.yPos, this.iWidth, this.iHeight);
 		
