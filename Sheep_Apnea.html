@@ -24,7 +24,6 @@
 <script src="Scripts/Pool.js"></script>
 <script src="Scripts/Player.js"></script>
 <script src="Scripts/Screen.js"></script>
-<script src="Scripts/ScreenManager.js"></script>
 <script type="text/javascript">
 if (typeof Object.create !== "function") {
 	Object.create = function (o) {
@@ -42,6 +41,7 @@ var testPool;
 
 var bgMain;
 var mainContext;
+var bounds;
 
 var Debugger = function () { };
 Debugger.log = function(message) 
@@ -76,12 +76,18 @@ function canvasApp()
 	{
 		bgMain = document.getElementById("main_layer");
 		mainContext = bgMain.getContext("2d");
+		bounds = {
+			x1: 0,
+			y1: 0,
+			x2: bgMain.width,
+			y2: bgMain.height
+		};
 		
 		player = sag.Player.extend({
 			context: mainContext
 		});
 		testPool = sag.Pool.extend();
-		testPool.init(10, "sheep", mainContext);
+		testPool.init(10, "sheep", mainContext, bounds);
 		player.init(testPool);
 	}
 }
@@ -89,6 +95,8 @@ function canvasApp()
 function render() 
 {
 	requestAnimFrame(render);
+	mainContext.fillStyle = "#aaaaaa";
+	mainContext.fillRect(0, 0, bgMain.width, bgMain.height);
 	player.update();
 	player.testSheepPool.animate();
 }

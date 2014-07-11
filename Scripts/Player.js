@@ -6,23 +6,24 @@ sag.Player = sag.Drawable.extend
 	xVel: 0,
 	yVel: 0,
 	fireRate: 15,
-	//counter: 0,
+	counter: 0,
 	testSheepPool: null,
 	
 	init: function(testPool)
 	{
-		testSheepPool: testPool;
+		this.testSheepPool = testPool;
 	},
 	
 	update: function()
 	{
-		//counter++;
+		this.counter++;
 		
 		this.context.clearRect(this.xPos, this.yPos, this.iWidth, this.iHeight);
 		
-		if(KEY_STATUS.space)
+		if(KEY_STATUS.space && this.counter >= this.fireRate)
 		{
-			testSheepPool.getMember("sheep");	
+			this.testSheepPool.getMember("sheep");
+			this.counter = 0;	
 		}
 	}
 });

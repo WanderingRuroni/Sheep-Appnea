@@ -17,7 +17,7 @@ sag.Pool =
 		return obj;
 	},
 	
-	init: function(maxSize,oType,sContext)
+	init: function(maxSize,oType,sContext, nBounds)
 	{
 		size = maxSize;
 		
@@ -26,7 +26,8 @@ sag.Pool =
 			for(var i = 0; i < size; i++)
 			{
 				var sheep = sag.Sheep.extend({
-					context: sContext
+					context: sContext,
+					bounds: nBounds
 				});
 				// initialization will be changed once I have sprites
 				sheep.init(0,0,15,15);
@@ -52,19 +53,22 @@ sag.Pool =
 		{
 			if(this.pool[i].alive)
 			{
-				this.pool[i].update();
+				if(this.pool[i].update())
+				{
+					this.pool[i].shear();
+					var tempItem = this.pool[0];
+					this.pool[0] = this.pool[i];
+					this.pool[i] = tempItem;
+					this.pool.push(this.pool.shift());
+					/* Will come back to this if my solution causes problems
+					pool.push((pool.splice(i,1))[0]);
+					 */
+				i--;
+				}
 			}
 			else
 			{
-				this.pool[i].shear();
-				var tempItem = this.pool[0];
-				this.pool[0] = this.pool[i];
-				this.pool[i] = tempItem;
-				this.pool.push(this.pool.shift());
-				/* Will come back to this if my solution causes problems
-				pool.push((pool.splice(i,1))[0]);
-				 */
-				i--;
+				break;
 			}
 		}
 	}

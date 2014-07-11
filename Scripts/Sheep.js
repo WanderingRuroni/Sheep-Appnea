@@ -23,10 +23,11 @@ sag.Sheep = sag.Drawable.extend
 	spawn: function(type)
 	{
 		this.xPos = this.bounds.x2 + this.iWidth;
-		this.yPos = (Math.random() * 240) + 40;
+		this.yPos = (Math.random() * 100) + 40;
 		this.sType = type;
 		this.yVel = (Math.random() * 4) + 4;
 		this.xVel = (Math.random() * 5) + 5;
+		this.alive = true;
 	},
 	
 	update: function()
@@ -35,18 +36,20 @@ sag.Sheep = sag.Drawable.extend
 		// functions needed for ballistic motion
 		// x: x = x0 + vX*t
 		// y: y = y0 + vY0*t - 0.5*g*t^2
-		var iVel = Math.sqrt((xVel*xVel) + (yVel*yVel));
+		var iVel = Math.sqrt((this.xVel*this.xVel) + (this.yVel*this.yVel));
 		//var angle = yVel/iVel * (180Math.PI);
-		xPos += xVel;
-		yPos -= yVel;
-		yVel += (0.5*gravity);
+		this.xPos += this.xVel;
+		this.yPos -= this.yVel;
+		this.yVel += (0.5*this.gravity);
 		
 		if(this.xPos < 0 - this.iWidth)
 		{
-			alive = false;	
+			return true;	
 		}
-		
-		this.draw();
+		else
+		{
+			this.draw();
+		}
 	},
 	
 	draw: function()
@@ -56,7 +59,7 @@ sag.Sheep = sag.Drawable.extend
 			throw new Error("context needs to be set on particle");
 		}
 		this.context.fillStyle = this.color;
-		this.context.fillRect(this.xPos - 7.5, this.yPos - 7.5, iWidth, iHeight);
+		this.context.fillRect(this.xPos - 7.5, this.yPos - 7.5, this.iWidth, this.iHeight);
 	},
 	
 	/* Resets all the values for the sheep object when it gets destroyed
@@ -70,5 +73,6 @@ sag.Sheep = sag.Drawable.extend
 		this.xVel = 0;
 		this.yVel = 0;
 		this.rotation = 0;
+		this.alive = false;
 	}
 });
