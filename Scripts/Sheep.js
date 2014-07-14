@@ -6,9 +6,9 @@ var sag = sag || {};
  */
 sag.Sheep = sag.Drawable.extend
 ({
-	xVel: 0,
-	yVel: 0,
-	rotation: 0,
+	xVel: 0.0,
+	yVel: 0.0,
+	rotation: 0.0,
 	gravity: 4.9,
 	alive: false,
 	sType: "",
@@ -25,8 +25,8 @@ sag.Sheep = sag.Drawable.extend
 		this.xPos = this.bounds.x2 + this.iWidth;
 		this.yPos = (Math.random() * 100) + 40;
 		this.sType = type;
-		this.yVel = (Math.random() * 4) + 4;
-		this.xVel = (Math.random() * 5) + 5;
+		this.yVel = (Math.random() * 2.0) + 0.5;
+		this.xVel = (Math.random() * 15) + 5;
 		this.alive = true;
 	},
 	
@@ -38,9 +38,9 @@ sag.Sheep = sag.Drawable.extend
 		// y: y = y0 + vY0*t - 0.5*g*t^2
 		var iVel = Math.sqrt((this.xVel*this.xVel) + (this.yVel*this.yVel));
 		//var angle = yVel/iVel * (180Math.PI);
-		this.xPos += this.xVel;
+		this.xPos -= this.xVel;
 		this.yPos -= this.yVel;
-		this.yVel += (0.5*this.gravity);
+		this.yVel -= (0.5*this.gravity);
 		
 		if(this.xPos < 0 - this.iWidth)
 		{

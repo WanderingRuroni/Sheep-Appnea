@@ -38,9 +38,12 @@ window.addEventListener("load",eventWindowLoaded, false);
 // Declare main game objects
 var player;
 var testPool;
+var sheople;
 
 var bgMain;
 var mainContext;
+var bgEnemy;
+var enemyContext;
 var bounds;
 
 var Debugger = function () { };
@@ -74,8 +77,10 @@ function canvasApp()
 	} 
 	else 
 	{
-		bgMain = document.getElementById("main_layer");
+		bgMain = document.getElementById("game_layer");
 		mainContext = bgMain.getContext("2d");
+		bgEnemy = document.getElementById("enemy_layer");
+		enemyContext = bgEnemy.getContext("2d");
 		bounds = {
 			x1: 0,
 			y1: 0,
@@ -119,7 +124,9 @@ window.requestAnimFrame = (function()
 <div style="position: absolute; top: 50px; left: 50px;">
 <canvas id="ui_layer" width="480" height="320">
 </canvas>
-<canvas id="main_layer" width="480" height="320">
+<canvas id="enemy_layer" width="480" height="320">
+</canvas>
+<canvas id="game_layer" width="480" height="320">
 	Your browser does not spport HTML5 canvas
 </canvas>
 <canvas id
