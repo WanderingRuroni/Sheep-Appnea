@@ -9,11 +9,10 @@ sag.Sheep = sag.Drawable.extend
 	xVel: 0.0,
 	yVel: 0.0,
 	rotation: 0.0,
-	gravity: 4.9,
+	gravity: 0.4,
 	alive: false,
 	sType: "",
 	mass: 0,
-	color: "#000000",
 	
 	/* The spawn function now is for testing purposes to see if the movement
 	 * works as intended
@@ -26,7 +25,7 @@ sag.Sheep = sag.Drawable.extend
 		this.yPos = (Math.random() * 100) + 40;
 		this.sType = type;
 		this.yVel = (Math.random() * 2.0) + 0.5;
-		this.xVel = (Math.random() * 15) + 5;
+		this.xVel = 8;
 		this.alive = true;
 	},
 	
@@ -56,7 +55,7 @@ sag.Sheep = sag.Drawable.extend
 	{
 		if(this.context === null) 
 		{
-			throw new Error("context needs to be set on particle");
+			throw new Error("context needs to be set for Sheep");
 		}
 		this.context.fillStyle = this.color;
 		this.context.fillRect(this.xPos, this.yPos, this.iWidth, this.iHeight);

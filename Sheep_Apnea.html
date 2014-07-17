@@ -88,12 +88,19 @@ function canvasApp()
 			y2: bgMain.height
 		};
 		
-		player = sag.Player.extend({
-			context: mainContext
-		});
 		testPool = sag.Pool.extend();
 		testPool.init(10, "sheep", enemyContext, bounds);
-		player.init(testPool);
+		
+		player = sag.Player.extend({
+			context: mainContext,
+			color: "#614126",
+			cWidth: bgMain.width,
+			cHeight: bgMain.height
+		});
+		var startX = bgMain.width/2;
+		var startY = bgMain.height/3*2;
+		player.init(startX, startY, 30, 70);
+		player.herdSheep(testPool);
 	}
 }
 
