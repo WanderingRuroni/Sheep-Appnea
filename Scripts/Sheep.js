@@ -32,7 +32,7 @@ sag.Sheep = sag.Drawable.extend
 	
 	update: function()
 	{
-		this.context.clearRect(this.xPos-1, this.yPos-1, this.iWidth+1, this.iHeight+1);
+		this.context.clearRect(this.xPos-1, this.yPos-1, this.iWidth+2, this.iHeight+2);
 		// functions needed for ballistic motion
 		// x: x = x0 + vX*t
 		// y: y = y0 + vY0*t - 0.5*g*t^2
@@ -59,7 +59,7 @@ sag.Sheep = sag.Drawable.extend
 			throw new Error("context needs to be set on particle");
 		}
 		this.context.fillStyle = this.color;
-		this.context.fillRect(this.xPos - 7.5, this.yPos - 7.5, this.iWidth, this.iHeight);
+		this.context.fillRect(this.xPos, this.yPos, this.iWidth, this.iHeight);
 	},
 	
 	/* Resets all the values for the sheep object when it gets destroyed

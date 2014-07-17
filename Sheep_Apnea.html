@@ -92,7 +92,7 @@ function canvasApp()
 			context: mainContext
 		});
 		testPool = sag.Pool.extend();
-		testPool.init(10, "sheep", mainContext, bounds);
+		testPool.init(10, "sheep", enemyContext, bounds);
 		player.init(testPool);
 	}
 }
@@ -122,12 +122,12 @@ window.requestAnimFrame = (function()
 
 <body>
 <div style="position: absolute; top: 50px; left: 50px;">
-<canvas id="ui_layer" width="480" height="320">
+<canvas id="game_layer" width="480" height="320">
+	Your browser does not spport HTML5 canvas
 </canvas>
 <canvas id="enemy_layer" width="480" height="320">
 </canvas>
-<canvas id="game_layer" width="480" height="320">
-	Your browser does not spport HTML5 canvas
+<canvas id="ui_layer" width="480" height="320">
 </canvas>
 <canvas id
 </div>
