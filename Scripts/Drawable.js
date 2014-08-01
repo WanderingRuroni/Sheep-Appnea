@@ -13,6 +13,7 @@ sag.Drawable =
 	iHeight: 0,
 	bounds: null,
 	context: null,
+	isColliding: false,
 	color: "#000000",
 	
 	/* A function that allows us to use inheritance on future classes using

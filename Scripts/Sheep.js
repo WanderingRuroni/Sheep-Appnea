@@ -9,7 +9,7 @@ sag.Sheep = sag.Drawable.extend
 	xVel: 0.0,
 	yVel: 0.0,
 	rotation: 0.0,
-	gravity: 0.4,
+	gravity: .5,
 	alive: false,
 	sType: "",
 	mass: 0,
@@ -25,7 +25,7 @@ sag.Sheep = sag.Drawable.extend
 		this.yPos = (Math.random() * 100) + 40;
 		this.sType = type;
 		this.yVel = (Math.random() * 2.0) + 0.5;
-		this.xVel = 8;
+		this.xVel = 2;
 		this.alive = true;
 	},
 	
@@ -39,7 +39,13 @@ sag.Sheep = sag.Drawable.extend
 		//var angle = yVel/iVel * (180Math.PI);
 		this.xPos -= this.xVel;
 		this.yPos -= this.yVel;
-		this.yVel -= (0.5*this.gravity);
+		this.yVel -= (this.gravity);
+		
+		// makes sure the sheep will bounce/hop if they hit the ground
+		if(this.yPos > this.bounds.y2 - this.iHeight/2)
+		{
+			this.yVel *= -0.9;	
+		}
 		
 		if(this.xPos < 0 - this.iWidth)
 		{

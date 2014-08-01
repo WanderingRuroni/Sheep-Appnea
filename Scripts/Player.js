@@ -46,9 +46,10 @@ sag.Player = sag.Drawable.extend
 					this.yPos = this.cHeight - this.iHeight;
 				}
 			}
-			
-			this.draw();
 		}
+		
+		this.draw();
+		
 		if(KEY_STATUS.space && this.counter >= this.fireRate)
 		{
 			this.testSheepPool.getMember("sheep");
