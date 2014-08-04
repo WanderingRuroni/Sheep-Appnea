@@ -47,6 +47,12 @@ sag.Sheep = sag.Drawable.extend
 			this.yVel *= -0.9;	
 		}
 		
+		if(this.isColliding)
+		{
+			this.xVel *= -1;
+			this.isColliding = false;	
+		}
+		
 		if(this.xPos < 0 - this.iWidth)
 		{
 			return true;	

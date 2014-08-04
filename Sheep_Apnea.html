@@ -108,7 +108,23 @@ function canvasApp()
 // sheep away
 function detectCollisions()
 {
+	var tempSheep = null;
 	
+	for(var i = 0; i < player.testSheepPool.size; i++)
+	{
+		tempSheep = player.testSheepPool[i];
+		
+		if(tempSheep.alive)
+		{
+			if(player.xPos < tempSheep.xPos + tempSheep.iWidth &&
+				player.xPos + player.iWidth > tempSheep.xPos &&
+				player.yPos < tempSheep.yPos + tempSheep.iHeight &&
+				player.yPos + player.iHeight > tempSheep.yPos)
+			{
+				player.testSheepPool[i].isColliding = true;	
+			}
+		}
+	}
 }
 
 function render() 
@@ -116,6 +132,7 @@ function render()
 	requestAnimFrame(render);
 	mainContext.fillStyle = "#aaaaaa";
 	mainContext.fillRect(0, 0, bgMain.width, bgMain.height);
+	detectCollisions();
 	player.update();
 	player.testSheepPool.animate();
 }

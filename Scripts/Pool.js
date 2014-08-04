@@ -19,11 +19,11 @@ sag.Pool =
 	
 	init: function(maxSize,oType,sContext, nBounds)
 	{
-		size = maxSize;
+		this.size = maxSize;
 		
 		if(oType == "sheep")
 		{
-			for(var i = 0; i < size; i++)
+			for(var i = 0; i < this.size; i++)
 			{
 				var sheep = sag.Sheep.extend({
 					context: sContext,
