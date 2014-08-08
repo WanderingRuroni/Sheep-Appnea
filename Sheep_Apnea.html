@@ -21,6 +21,7 @@
 <script src="Scripts/KeyboardInputs.js"></script>
 <script src="Scripts/Drawable.js"></script>
 <script src="Scripts/Sheep.js"></script>
+<script src="Scripts/BombSheep.js"></script>
 <script src="Scripts/Pool.js"></script>
 <script src="Scripts/Player.js"></script>
 <script src="Scripts/Screen.js"></script>
@@ -89,7 +90,7 @@ function canvasApp()
 		};
 		
 		testPool = sag.Pool.extend();
-		testPool.init(10, "sheep", enemyContext, bounds);
+		testPool.init(1, "sheep", enemyContext, bounds);
 		
 		player = sag.Player.extend({
 			context: mainContext,
@@ -100,28 +101,27 @@ function canvasApp()
 		var startX = bgMain.width/2;
 		var startY = bgMain.height/3*2;
 		player.init(startX, startY, 30, 70);
-		player.herdSheep(testPool);
 	}
 }
 
 // very basic collision detection for now so the player can deflect 
 // sheep away
-function detectCollisions()
+function detectCollisions(sheepPool)
 {
 	var tempSheep = null;
 	
-	for(var i = 0; i < player.testSheepPool.size; i++)
+	for(var i = 0; i < sheepPool.size; i++)
 	{
-		tempSheep = player.testSheepPool[i];
+		tempSheep = sheepPool.pool[i];
 		
-		if(tempSheep.alive)
+		if(sheepPool.pool[i].alive)
 		{
-			if(player.xPos < tempSheep.xPos + tempSheep.iWidth &&
-				player.xPos + player.iWidth > tempSheep.xPos &&
-				player.yPos < tempSheep.yPos + tempSheep.iHeight &&
-				player.yPos + player.iHeight > tempSheep.yPos)
+			if(player.xPos < sheepPool.pool[i].xPos + sheepPool.pool[i].iWidth &&
+				player.xPos + player.iWidth > sheepPool.pool[i].xPos &&
+				player.yPos < sheepPool.pool[i].yPos + sheepPool.pool[i].iHeight &&
+				player.yPos + player.iHeight > sheepPool.pool[i].yPos)
 			{
-				player.testSheepPool[i].isColliding = true;	
+				sheepPool.pool[i].isColliding = true;
 			}
 		}
 	}
@@ -132,9 +132,10 @@ function render()
 	requestAnimFrame(render);
 	mainContext.fillStyle = "#aaaaaa";
 	mainContext.fillRect(0, 0, bgMain.width, bgMain.height);
-	detectCollisions();
-	player.update();
-	player.testSheepPool.animate();
+	detectCollisions(testPool);
+	player.update(testPool);
+	testPool.animate();
+	console.log(testPool.size);
 }
 
 window.requestAnimFrame = (function()

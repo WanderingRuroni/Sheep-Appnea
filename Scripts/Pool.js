@@ -25,7 +25,7 @@ sag.Pool =
 		{
 			for(var i = 0; i < this.size; i++)
 			{
-				var sheep = sag.Sheep.extend({
+				var sheep = sag.BombSheep.extend({
 					context: sContext,
 					bounds: nBounds
 				});
@@ -38,32 +38,48 @@ sag.Pool =
 	
 	// Pops a member of the pool out of its array and spawns the object into
 	// the game world
-	getMember: function(type)
+	getMember: function(type,x,y)
 	{
-		if(!this.pool[size - 1].alive)
+		if(!this.pool[this.size - 1].alive)
 		{
-			this.pool[size - 1].spawn(type);
+			this.pool[this.size - 1].spawn(type,x,y);
 			this.pool.unshift(this.pool.pop());
 		}
 	},
 	
+	addMember: function(newMember)
+	{
+		this.size = this.pool.push(newMember);
+	},
+	
 	animate: function()
 	{
-		for(var i = 0; i < size; i++)
+		for(var i = 0; i < this.size; i++)
 		{
 			if(this.pool[i].alive)
 			{
-				if(this.pool[i].update())
+				if(this.pool[i].update(this))
 				{
-					this.pool[i].shear();
-					var tempItem = this.pool[0];
-					this.pool[0] = this.pool[i];
-					this.pool[i] = tempItem;
-					this.pool.push(this.pool.shift());
-					/* Will come back to this if my solution causes problems
-					pool.push((pool.splice(i,1))[0]);
-					 */
-				i--;
+					// for the bomb sheep where its mini sheep arent permanent additions to the sheep herd
+					// the mini sheep that were added need to be removed permanently
+					// Upon thinking, mini sheep could be a new type but will stick with this solution for now.
+					if(this.pool[i].sType == "miniCluster")
+					{
+						this.pool.splice(i,1);
+						this.size = this.pool.length;
+					}
+					else
+					{
+						this.pool[i].shear();
+						var tempItem = this.pool[0];
+						this.pool[0] = this.pool[i];
+						this.pool[i] = tempItem;
+						this.pool.push(this.pool.shift());
+						/* Will come back to this if my solution causes problems
+						pool.push((pool.splice(i,1))[0]);
+						 */
+						i--;
+					}
 				}
 			}
 			else

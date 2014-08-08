@@ -6,15 +6,8 @@ sag.Player = sag.Drawable.extend
 	yVel: 5,
 	fireRate: 15,
 	counter: 0,
-	testSheepPool: null,
 	cWidth: 0,
 	cHeight: 0,
-	
-	// Function for testing purposes of the sheep trajectory
-	herdSheep: function(testPool)
-	{
-		this.testSheepPool = testPool;
-	},
 	
 	draw: function()
 	{
@@ -26,7 +19,7 @@ sag.Player = sag.Drawable.extend
 		this.context.fillRect(this.xPos, this.yPos, this.iWidth, this.iHeight);
 	},
 	
-	update: function()
+	update: function(testSheepPool)
 	{
 		this.counter++;
 		
@@ -52,7 +45,7 @@ sag.Player = sag.Drawable.extend
 		
 		if(KEY_STATUS.space && this.counter >= this.fireRate)
 		{
-			this.testSheepPool.getMember("sheep");
+			testSheepPool.getMember("sheep");
 			this.counter = 0;	
 		}
 	}

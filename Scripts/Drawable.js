@@ -37,10 +37,5 @@ sag.Drawable =
 		this.yPos = yPos;
 		this.iWidth = iWid;
 		this.iHeight = iHei;
-	},
-	
-	// abstract draw function for other classes to override
-	draw: function()
-	{
 	}
 };
