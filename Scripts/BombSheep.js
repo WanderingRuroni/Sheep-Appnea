@@ -49,6 +49,7 @@ sag.BombSheep = sag.Sheep.extend
 		}
 	},
 	
+	// function that spawns small, regular sheep from the bomb sheep after it reaches a certain point on screen
 	clusterSheep: function(herd)
 	{
 		for(var i = -1; i < 2; i++)
